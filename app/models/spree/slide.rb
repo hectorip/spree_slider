@@ -8,7 +8,17 @@ class Spree::Slide < ActiveRecord::Base
                     url: '/spree/slides/:id/:style/:basename.:extension',
                     path: ':rails_root/public/spree/slides/:id/:style/:basename.:extension',
                     convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
+  has_attached_file :image_medium,
+                    url: '/spree/slides/:id/:style/:basename.:extension',
+                    path: ':rails_root/public/spree/slides/:id/:style/:basename.:extension',
+                    convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
+  has_attached_file :image_small,
+                    url: '/spree/slides/:id/:style/:basename.:extension',
+                    path: ':rails_root/public/spree/slides/:id/:style/:basename.:extension',
+                    convert_options: { all: '-strip -auto-orient -colorspace sRGB' }
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+  validates_attachment :image_medium, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
+  validates_attachment :image_small, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
   
   scope :published, -> { where(published: true).order('position ASC') }
   scope :location, -> (location){ joins(:slide_locations).where('spree_slide_locations.name = ?', location) }
@@ -30,5 +40,11 @@ class Spree::Slide < ActiveRecord::Base
 
   def slide_image
     !image.file? && product.present? && product.images.any? ? product.images.first.attachment : image
+  end
+  def slide_image_medium
+    !image_medium.file? && product.present? && product.images.any? ? product.images.first.attachment : image_medium
+  end
+  def slide_image_small
+    !image_small.file? && product.present? && product.images.any? ? product.images.first.attachment : image_small
   end
 end

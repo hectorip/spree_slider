@@ -66,4 +66,42 @@
     <% end %>
   </div>
 
+  <div class="col-md-6">
+    <%= f.field_container :image_medium do %>
+      <%= f.label :image_medium, t(:image_medium) %> <i>(<%= t('spree_slider.image_tip') %>)</i><br>
+      <%= f.file_field :image_medium %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <%= f.field_container :image_medium do %>
+      <% if f.object.image_medium? %>
+        <p>
+          <%= label_tag t(:preview) %>
+          <br>
+          <%= image_tag f.object.image_medium, class: 'img-responsive' %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <%= f.field_container :image_small do %>
+      <%= f.label :image_small, t(:image_small) %> <i>(<%= t('spree_slider.image_tip') %>)</i><br>
+      <%= f.file_field :image_small %>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <%= f.field_container :image_small do %>
+      <% if f.object.image_small? %>
+        <p>
+          <%= label_tag t(:preview) %>
+          <br>
+          <%= image_tag f.object.image_small, class: 'img-responsive' %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+
 </div>
